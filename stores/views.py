@@ -1,5 +1,5 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from stores import models
 from .forms import StoreItemForm
@@ -13,6 +13,11 @@ def get_store_items(request: HttpRequest) -> HttpResponse:
 
 def create_store_item(request):
     form = StoreItemForm()
+    if request.method == "POST":
+        form = StoreItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("store-item-list")
     context = {
         "form": form,
     }
