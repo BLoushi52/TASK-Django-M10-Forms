@@ -37,7 +37,31 @@
               <h5 class="card-title">{{ item.name }}</h3>
                 <h6 class="card-subtitle mb-2 text-muted">Kind: {{ item.kind }}</h6>
                 <p class="card-text">{{ item.description }}</p>
-                <a class="btn btn-dark" href="{% url 'delete-store-item' item_id=item.id %}">Delete</a>
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Delete
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Item</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete item?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        <a class="btn btn-danger" href="{% url 'delete-store-item' item_id=item.id %}">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <a class="btn btn-dark" href="{% url 'update-store-item' item_id=item.id %}">Edit</a>
               </div>
             </div>
