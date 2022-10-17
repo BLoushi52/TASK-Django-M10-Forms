@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
-
+from .models import StoreItem
 from stores import models
 from .forms import StoreItemForm
 
@@ -22,3 +22,17 @@ def create_store_item(request):
         "form": form,
     }
     return render(request, 'create_store_item.html', context)
+
+def update_store_item(request, item_id):
+    item = StoreItem.objects.get(id=item_id)
+    form = StoreItemForm(instance=item)
+    if request.method == "POST":
+        form = StoreItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect("store-item-list")
+    context = {
+        "item": item,
+        "form": form,
+    }
+    return render(request, 'update_store_item.html', context)
