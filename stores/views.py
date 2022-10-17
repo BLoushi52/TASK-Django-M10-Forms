@@ -36,3 +36,7 @@ def update_store_item(request, item_id):
         "form": form,
     }
     return render(request, 'update_store_item.html', context)
+
+def delete_store_item(request, item_id):
+    StoreItem.objects.get(id=item_id).delete()
+    return redirect("store-item-list")
